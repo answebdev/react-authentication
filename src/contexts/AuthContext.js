@@ -32,6 +32,11 @@ export function AuthProvider({ children }) {
     return auth.signOut();
   }
 
+  // Reset Password function
+  function resetPassword(email) {
+    return auth.sendPasswordResetEmail(email);
+  }
+
   // This allows us to set the current user.
   // So, whenever we call 'createUserWithEmailAndPassword' (this comes from Firebae),
   // it's going to call 'setCurrentUser' and set that user for us.
@@ -72,6 +77,7 @@ export function AuthProvider({ children }) {
     login,
     signup,
     logout,
+    resetPassword,
   };
   // Check to see if we're loading.
   // Otherwise, we don't want to run this.

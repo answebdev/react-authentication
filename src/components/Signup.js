@@ -36,7 +36,7 @@ export default function Signup() {
       // and accidentally create multiple accounts at the same time.
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
-      history.pushState('/');
+      history.push('/');
     } catch {
       setError('Failed to create an account');
     }
