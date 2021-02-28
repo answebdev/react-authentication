@@ -53,7 +53,9 @@ export default function Signup() {
           <Form onSubmit={handleSubmit}>
             <Form.Group id='email'>
               <Form.Label>Email</Form.Label>
-              {/* Use 'ref' so that we can actually get the value when we actually need to submit the form. */}
+              {/* Use 'ref' so that we can actually get the value when we actually need to submit the form.
+              See: https://www.youtube.com/watch?v=t2ypzz6gJm0 */}
+              
               <Form.Control type='email' ref={emailRef} required />
             </Form.Group>
             <Form.Group id='password'>
