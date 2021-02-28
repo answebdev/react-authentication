@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Form, Card, Button, Alert } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -9,6 +9,8 @@ export default function Login() {
   const { login } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false); // 'false' by default - we're not loading by default.
+  const history = useHistory();
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -16,6 +18,7 @@ export default function Login() {
       setError('');
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
+      history.push('/');
     } catch {
       setError('Failed to log in');
     }
@@ -44,7 +47,7 @@ export default function Login() {
           </Form>
         </Card.Body>
       </Card>
-      <div className='w-100' text-center mt-2>
+      <div className='w-100 text-center mt-2'>
         Need an account? <Link to='signup'>Sign Up</Link>
       </div>
     </>

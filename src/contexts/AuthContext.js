@@ -15,12 +15,21 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
+  // Sign up function
+  // If you don't want to use another backend instead of Firebase, all you would need to do
+  // is to get rid of this 'return' statement and use the one for your backend of choice.
   function signup(email, password) {
     return auth.createUserWithEmailAndPassword(email, password);
   }
 
+  // Log in function
   function login(email, password) {
     return auth.signInWithEmailAndPassword(email, password);
+  }
+
+  // Log out function
+  function logout() {
+    return auth.signOut();
   }
 
   // This allows us to set the current user.
@@ -57,10 +66,12 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
+  // Our context:
   const value = {
     currentUser,
     login,
     signup,
+    logout,
   };
   // Check to see if we're loading.
   // Otherwise, we don't want to run this.
