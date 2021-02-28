@@ -9,6 +9,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
+  const [loading, setLoading] = useState(true);
 
   function signup(email, password) {
     return auth.createUserWithEmailAndPassword(email, password);
@@ -27,9 +28,22 @@ export function AuthProvider({ children }) {
   // it will unsubscribe this 'auth.onAuthStateChanged' event.
   // So, we can then return 'unsubscribe', and this is going to unsubscribe us from the 'onAuthStateChanged' listener
   // whenever we unmount this component, which is exactly what we want.
+
+  // Firebase actually sets local storage for you, sets tokens,
+  // so that way, it can verify that if you have a user already signed in,
+  // it will connect that user for you.
+  // And it will use 'onAuthStateChanged'.
+  // But that means that you have an initial loading state that you have to worry about.
+  // So, we're going to set 'setLoading' to 'false' (which will initially be set to 'true' see above).
+  // Whenever we actually have a user, when this changes, it means we're done loading.
+  // So by default, we're loading.
+  // And as soon as we get this first 'useEffect' that runs,
+  // that means it did the verification to see that there is a user,
+  // and then we're going to set our loading to 'false'.
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
+      setLoading(false);
     });
 
     return unsubscribe;
@@ -39,6 +53,13 @@ export function AuthProvider({ children }) {
     currentUser,
     signup,
   };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  // Check to see if we're loading.
+  // Otherwise, we don't want to run this.
+  // So, if we're not loading, we want to render out the children.
+  // Otherwise, we don't want to render the children.
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 }

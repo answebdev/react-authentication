@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react';
 import { Form, Card, Button, Alert } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 
+// STOPPED AT 27:00 - Next: routing
+
 export default function Signup() {
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -51,6 +53,7 @@ export default function Signup() {
           <Form onSubmit={handleSubmit}>
             <Form.Group id='email'>
               <Form.Label>Email</Form.Label>
+              {/* Use 'ref' so that we can actually get the value when we actually need to submit the form. */}
               <Form.Control type='email' ref={emailRef} required />
             </Form.Group>
             <Form.Group id='password'>
