@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Form, Card, Button, Alert } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
-
-// STOPPED AT 27:00 - Next: routing
 
 export default function Signup() {
   const emailRef = useRef();
@@ -55,7 +54,7 @@ export default function Signup() {
               <Form.Label>Email</Form.Label>
               {/* Use 'ref' so that we can actually get the value when we actually need to submit the form.
               See: https://www.youtube.com/watch?v=t2ypzz6gJm0 */}
-              
+
               <Form.Control type='email' ref={emailRef} required />
             </Form.Group>
             <Form.Group id='password'>
@@ -73,7 +72,7 @@ export default function Signup() {
         </Card.Body>
       </Card>
       <div className='w-100' text-center mt-2>
-        Already have an account? Log In
+        Already have an account? <Link to='login'>Log In</Link>
       </div>
     </>
   );
